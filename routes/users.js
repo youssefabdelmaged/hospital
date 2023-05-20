@@ -5,17 +5,17 @@ const{updateProfileUser} = require('../middleware/validator')
 const upload = require('../middleware/multer')
 const gaurd = require('../middleware/is-auth')
 
-router.get('/account/profile/:id',gaurd,usersControllers.getProfilePatient)
+router.get('/account/profile/:id',usersControllers.getProfilePatient)
 
-router.put('/account/updatePhoto/:id',gaurd,upload.single('photo'),usersControllers.updatePhoto)
+router.put('/account/updatePhoto/:id',upload.single('photo'),usersControllers.updatePhoto)
 
-router.get('/account/photo/:id',gaurd,usersControllers.getDoctorPhoto)
+router.get('/account/photo/:id',usersControllers.getDoctorPhoto)
 
-router.put('/account/profile/:id',gaurd,updateProfileUser(),usersControllers.updateProfile)
+router.put('/account/profile/:id',updateProfileUser(),usersControllers.updateProfile)
 
-router.put('/account/changePassword/:id',gaurd,usersControllers.updatedPassword)
+router.put('/account/changePassword/:id',usersControllers.updatedPassword)
 
-router.delete('/account/profile/:id',gaurd,usersControllers.deleteProfile)
-router.get('/reservation',gaurd,usersControllers.getAllReservation)
+router.delete('/account/profile/:id',usersControllers.deleteProfile)
+router.get('/reservation',usersControllers.getAllReservation)
 
 module.exports = router

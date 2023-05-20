@@ -3,14 +3,14 @@ const gaurd = require('../middleware/is-auth')
 const usersController = require('../controllers/reservations')
 const router = express.Router()
 
-router.post('/createReservation',gaurd, usersController.create) 
+router.post('/createReservation', usersController.create) 
 
 router.get('/checkout-session/:id',usersController.cheeckOutSession)
 
-router.get('/reservation/:id',gaurd,usersController.getSpesficReservation)
+router.get('/reservation/:id',usersController.getSpesficReservation)
 
-router.put('/reservation/:id',gaurd,usersController.updateReservation)
+router.put('/reservation/:id',usersController.updateReservation)
 
-router.delete('/reservation/:id',gaurd,usersController.cancel)
+router.delete('/reservation/:id',usersController.cancel)
 
 module.exports= router

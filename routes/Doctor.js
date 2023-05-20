@@ -8,17 +8,17 @@ const gaurd = require('../middleware/is-auth')
 
 routes.get('/account/profile/:doctorId',controller.getProfile)
 routes.get('/account/photo/:doctorId',controller.getDoctorPhoto)
-routes.put('/account/updatePhoto/:doctorId',gaurd,upload.single('photo'),controller.updatePhoto)
-routes.put('/account/changePassword/:doctorId',gaurd,controller.updatedPassword)
-routes.put('/account/profile/:doctorId',gaurd,updateProfileUser(),controller.updateProfile)
+routes.put('/account/updatePhoto/:doctorId',upload.single('photo'),controller.updatePhoto)
+routes.put('/account/changePassword/:doctorId',controller.updatedPassword)
+routes.put('/account/profile/:doctorId',updateProfileUser(),controller.updateProfile)
 
-routes.get('/getAllResrvationDay',gaurd,controller.getAllReservation)
+routes.get('/getAllResrvationDay',controller.getAllReservation)
 
-routes.get('/getResrvationDay',gaurd,controller.getReservationDay)
+routes.get('/getResrvationDay',controller.getReservationDay)
 
-routes.get('/getResrvationDay/:id',gaurd,controller.getReservationDayById)
+routes.get('/getResrvationDay/:id',controller.getReservationDayById)
 
-routes.delete('/getResrvationDay/:id',gaurd,controller.deleteReservation)
+routes.delete('/getResrvationDay/:id',controller.deleteReservation)
 
 module.exports = routes
 

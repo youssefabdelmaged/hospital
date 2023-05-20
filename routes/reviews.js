@@ -4,10 +4,10 @@ const reviewController = require('../controllers/reviews')
 const gaurd = require('../middleware/is-auth')
 const router = require('./admin')
 
-routes.post('/doctor/:doctorId/review',gaurd,reviewController.postReview)
+routes.post('/doctor/:doctorId/review',reviewController.postReview)
 
-routes.delete('/doctor/:doctorId/review/:reviewId',gaurd,reviewController.deleteReview)
+routes.delete('/doctor/:doctorId/review/:reviewId',reviewController.deleteReview)
 
-routes.post('/doctor/complaints/:doctorId',gaurd,reviewController.addComplaints)
+routes.post('/doctor/complaints/:doctorId',reviewController.addComplaints)
 
 module.exports = routes
