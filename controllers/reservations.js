@@ -132,23 +132,23 @@ const createMeeting = async(session)=>
     appointmentId.save()
 }
 
-// exports.webhookCheckOut = async(req,res,next)=>
-// {
+exports.webhookCheckOut = async(req,res,next)=>
+{
    
-//         const sig = req.headers['stripe-signature'];
-//         let event;
-//         try {
-//           event = stripe.webhooks.constructEvent(req.body, sig, process.env.WEBHOOK_SECRET_STRIPE);
-//         } catch (err) {
-//             return res.status(400).send(`Webhook Error: ${err.message}`);
-//         }      
-//         if(event.type === 'checkout.session.completed')
-//         {
-//             createMeeting(event.data.object)
-//         }
-//         return res.json({recived:true})
+        const sig = req.headers['stripe-signature'];
+        let event;
+        try {
+          event = stripe.webhooks.constructEvent(req.body, sig, process.env.WEBHOOK_SECRET_STRIPE);
+        } catch (err) {
+            return res.status(400).send(`Webhook Error: ${err.message}`);
+        }      
+        if(event.type === 'checkout.session.completed')
+        {
+            createMeeting(event.data.object)
+        }
+        return res.json({recived:true})
     
-// }
+}
 
 exports.getSpesficReservation = async(req,res,next)=>
 {

@@ -32,7 +32,7 @@ app.use((req,res,next)=>
 })
 
 const webhook = require('./controllers/reservations')
-
+app.post('/webhook-check-out', express.raw({type: 'application/json'}),webhook.webhookCheckOut)
 
 
 app.use(express.json())
