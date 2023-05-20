@@ -13,7 +13,7 @@ router.get('/account/photo/:id',gaurd,usersControllers.getDoctorPhoto)
 
 router.put('/account/profile/:id',gaurd,updateProfileUser(),usersControllers.updateProfile)
 
-router.put('/account/changePassword/:id',gaurd,sersControllers.updatedPassword)
+router.put('/account/changePassword/:id',gaurd,usersControllers.updatedPassword)
 
 router.delete('/account/profile/:id',gaurd,usersControllers.deleteProfile)
 router.get('/reservation',gaurd,usersControllers.getAllReservation)
