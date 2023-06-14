@@ -13,7 +13,7 @@ exports.getRoom = async(room) => {
   
   return await fetch(`https://docbook.daily.co/v1/rooms/${room}`, {
     method: "GET",
-    headers,
+   headers,
   })
     .then((res) => res.json())
     .then((json) => {
@@ -55,7 +55,7 @@ exports.deleteRoom = async(room) => {
   
   return await fetch(`https://docbook.daily.co/v1/rooms/:${room}`, {
     method: "DELETE",
-    headers,
+   headers,
   })
     .then((res) => res.json())
     .then((json) => {

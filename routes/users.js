@@ -16,6 +16,7 @@ router.put('/account/profile/:id',updateProfileUser(),usersControllers.updatePro
 router.put('/account/changePassword/:id',usersControllers.updatedPassword)
 
 router.delete('/account/profile/:id',usersControllers.deleteProfile)
+
 router.get('/reservation',usersControllers.getAllReservation)
 
 module.exports = router

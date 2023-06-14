@@ -3,7 +3,8 @@ var moment = require('moment');
 const User = require('../model/users')
 const Doctor = require('../model/doctor')
 const stripe = require("stripe")(process.env.STRIPE_SECERT);
-const meeting = require('../middleware/dailyco')
+const meeting = require('../middleware/dailyco');
+
 
 exports.create = async(req,res,next)=>
 {
@@ -63,6 +64,7 @@ exports.create = async(req,res,next)=>
 
 exports.cheeckOutSession = async(req,res,next)=>
 {
+
     try{
         //get reservation Id and price of docotr
         const appointmentId = await appointment.findById(req.params.id)
@@ -90,11 +92,12 @@ exports.cheeckOutSession = async(req,res,next)=>
               },
             ],
             mode: 'payment',
-            success_url: `${req.protocol}://${req.get('host')}/reservation`,
+            success_url: `${req.protocol}://${req.get('host')}/user/reservation`,
             cancel_url: `${req.protocol}://${req.get('host')}/createReservation`,
             customer_email:appointmentId.patient.email,
             client_reference_id:appointmentId._id.toString()
           });
+
         return res.status(200).json({status:'success',session})
     }
     catch(error)
@@ -107,28 +110,17 @@ exports.cheeckOutSession = async(req,res,next)=>
     }
 }
 
+
+
 const createMeeting = async(session)=>
 {
-    let newRoom
-    let roomId = Math.floor(100000000 + Math.random() * 900000000).toString();
+   
     const reservationId = session.client_reference_id
     const totalPaid = session.amount_total / 100
     const appointmentId = await appointment.findById(reservationId)
-    const room = await meeting.getRoom(roomId);
-        if (room.error) 
-        {
-            newRoom = await meeting.createRoom(roomId,appointmentId.meetingStart);
-        } 
-        if (room.error !== "not-found")
-        {
-            return res.status(400).json({message:'error video'})
-        } 
-    appointmentId.meeting = newRoom.url
-    appointmentId.meetingName = newRoom.name
     appointmentId.totalPaid = totalPaid
     appointmentId.paidAt = moment(Date.now()).format('YYYY-MM-DD hh:mm z')
     appointmentId.isPaid = true
-    appointmentId.meetingStart = undefined
     appointmentId.save()
 }
 
@@ -144,7 +136,7 @@ exports.webhookCheckOut = async(req,res,next)=>
         }      
         if(event.type === 'checkout.session.completed')
         {
-            createMeeting(event.data.object)
+           createMeeting(event.data.object)
         }
         return res.json({recived:true})
     
