@@ -7,18 +7,25 @@ exports.searchquery = async(req,res,next)=>
     const prepage = 10
     try
     {
-        
-        let findDoctor = await Doctor
-        .find(  
-           
+        let query = {}
+        if(req.query.page)
         {
-            "userName" : { $regex:req.body.userName} ,
-            "specialty": {$regex:req.body.specialty}
-        })
+            query.page = currentPage
+        }
+       
+        if(req.query.specialty)
+        {
+            query.specialty = req.query.specialty
+        }
+        if(req.query.userName)
+        {
+            query.userName = { $regex:req.query.userName} 
+        }
+        let findDoctor = await Doctor
+        .find(query)
         .select('userName photo specialty region city birthDate location phone calender raiting numReviews')
         .skip((currentPage -1 ) * prepage)
         .limit(prepage)
-        .populate('calender')
         if(findDoctor==0)
         {
            return res.json({message:'sorry this doctors not found'})
@@ -43,12 +50,21 @@ exports.filterOnline = async(req,res,next)=>
     const prepage = 10
     try
     {
+        let query = {}
+        if(req.query.page)
+        {
+            query.page = currentPage
+        }
+        if(req.query.specialty)
+        {
+            query.specialty = req.query.specialty
+        }
+        if(req.query.userName)
+        {
+            query.userName = { $regex:req.query.userName} 
+        }
         let findDoctor = await Doctor
-        .find(    
-            {
-                "userName" : { $regex:req.body.userName} ,
-                "specialty": {$regex:req.body.specialty}
-            })
+        .find(query)
         .where('online').equals(true)
         .select('userName photo specialty region city birthDate location phone teleCalender raiting numReviews')
         .skip((currentPage -1 ) * prepage)

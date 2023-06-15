@@ -9,29 +9,26 @@ const gaurd = require('../middleware/is-auth')
 /*
 @DESC To get all docotors that not veried yet 
 */
-router.get('/verfy-doctors',adminController.getVerfyDoctor)
+router.get('/verfy-doctors',gaurd,adminController.getVerfyDoctor)
 /*
 @DESC To accepet docotors that are veried or removed form db
 */
-router.post('/verfy-doctors',adminController.postVerfyDoctor)
+router.post('/verfy-doctors',gaurd,adminController.postVerfyDoctor)
 
 /*
 @DESC To get all docotors after veried
 */
+router.get('/accepted-doctors',gaurd,adminController.getAcceptedDoctors)
 
-router.get('/accepted-doctors',adminController.getAcceptedDoctors)
+router.post('/search',gaurd,adminController.filterSearch)
 
-router.post('/search',adminController.filterSearch)
+router.get('/accounts/allDoctors',gaurd,adminController.getAllDoctorsAccounts)
 
-router.get('/accounts/allDoctors',adminController.getAllDoctorsAccounts)
+router.get('/complaints/allDoctors',gaurd,adminController.getDoctorComplaints)
 
-router.get('/accounts/:doctorId',adminController.getAccounts)
+router.get('/complaints/:doctorId',gaurd,adminController.getComplaintsDoctor)
 
-router.get('/complaints/allDoctors',adminController.getDoctorComplaints)
-
-router.get('/complaints/:doctorId',adminController.getComplaintsDoctor)
-
-router.delete('/deleteDoctor/:doctorId',adminController.deleteProfile)
+router.delete('/deleteDoctor/:doctorId',gaurd,adminController.deleteProfile)
 
 
 

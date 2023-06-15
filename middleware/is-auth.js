@@ -3,14 +3,17 @@ const jwt = require('jsonwebtoken')
 module.exports = (req,res,next) =>
 {
     //we add this check to improved way to handle error
-    const authHeader = req.get('token')
-    if(!authHeader)
+    let token ;
+    if(req.headers.authorization){
+        token = req.headers.authorization.split(" ")[1];
+    }
+    
+    if(!token)
     {
         const error = new error ('this user not found')
         error.statuscode = 401
         throw error
     }
-    const token = authHeader
     let decodedToken
     try 
     {

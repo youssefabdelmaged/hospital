@@ -5,7 +5,6 @@ const {validationResult} = require('express-validator')
 const moment = require('moment')
 const bcrypt = require('bcryptjs') //for hash password
 
-
 exports.getProfilePatient = async(req,res,next)=>
 {
     const id = req.params.id
@@ -32,7 +31,6 @@ exports.getProfilePatient = async(req,res,next)=>
         next(error)
     }
 }
-
 exports.updateProfile =async(req,res,next)=>
 {
     try
@@ -72,61 +70,6 @@ exports.updateProfile =async(req,res,next)=>
         next(error)
     }
 } 
-
-
-exports.updatePhoto = async(req,res,next)=>
-{
-    try
-    {
-        const spesficDoc = await User.findById(req.params.id).select('photo photoId')
-        if(!spesficDoc)
-        {
-            return res.status(404).json({message:"not available"})
-        }
-        if(!req.file)
-        {
-            return res.status(404).json({message:'please upload the photo'})
-          
-        }
-        await cloud.destroy(spesficDoc.photoId);
-        const photoPath = req.file.path
-        const photoUploaderCloudinary = await cloud.uploads(photoPath)
-
-        spesficDoc.photo = photoUploaderCloudinary.url
-        spesficDoc.photoId = photoUploaderCloudinary.id
-        await spesficDoc.save()
-        fs.unlinkSync(photoPath)
-        return res.status(200).json({message:"ok update successfully",
-        photo:spesficDoc.photo,photoId:spesficDoc.id})
-    }
-    catch(error)
-    {
-        if(!error.statuscode)
-        {
-            error.statuscode=500
-        }
-        next(error)
-    }
-}
-exports.getDoctorPhoto = async(req,res,next)=>
-{
-    const docId = req.params.doctorId
-    try
-    {
-        const spesficDoc = await User
-        .findById(docId).select('photo')
-        return res.status(200).json(spesficDoc)
-    }
-    catch(error)
-    {
-        if(!error.statuscode)
-        {
-            error.statuscode=500
-        }
-        next(error)
-    }
-}
-
 exports.updatedPassword = async(req,res,next)=>
 {
     try
@@ -149,7 +92,6 @@ exports.updatedPassword = async(req,res,next)=>
         next(error)
     }
 }
-
 exports.deleteProfile = async(req,res,next)=>
 {
     try
@@ -170,7 +112,6 @@ exports.deleteProfile = async(req,res,next)=>
         next(error)
     }
 }
-
 exports.getAllReservation = async(req,res,next)=>
 {
     const appointments = await appointment
@@ -191,5 +132,3 @@ exports.getAllReservation = async(req,res,next)=>
     }
 
 }
-
-

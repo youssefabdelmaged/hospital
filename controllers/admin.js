@@ -87,12 +87,21 @@ exports.filterSearch = async(req,res,next)=>
     const prepage = 10
     try
     {
-        let findDoctor = await Doctor
-        .find(   
-            {
-                "userName" : { $regex:req.body.userName} ,
-                "specialty": {$regex:req.body.specialty}
-            })
+        let query = {}
+        if(req.query.page)
+        {
+            query.page = currentPage
+        }
+        if(req.query.specialty)
+        {
+            query.specialty = req.query.specialty
+        }
+        if(req.query.userName)
+        {
+            query.userName = { $regex:req.query.userName} 
+        }
+
+        let findDoctor = await Doctor.find(query)
         .select('userName photo email specialty city birthDate gender raiting')
         .skip((currentPage -1 ) * prepage)
         .limit(prepage)
@@ -136,71 +145,6 @@ exports.getAllDoctorsAccounts = async(req,res,next)=>
             next(err)
     }
 }
-
-exports.getAccounts = async(req,res,next)=>
-{
-    try
-    {
-        let doctorId = req.params.doctorId
-        const doctorData = await Doctor.findById(doctorId)
-        .select('userName photo email specialty city birthDate gender raiting')
-        if(!doctorData)
-        {
-            return res.status(400).json({message:'this doctor not found'})
-        }
-        const DoctorOrderOnline = await Orders.aggregate([  
-           { 
-            $match:{reservationPlace:{ $in:["video call"]},doctor: doctorData._id,isPaid:true}
-           },  
-           {
-            $group:{
-                _id:"$reservationPlace",
-                totalPaid:{$sum:"$totalPaid"},
-                totalOrders: { $sum: 1}
-            }}    
-        ])
-     
-         let totalPaid
-         let totalOrders  
-        const online = DoctorOrderOnline.find((x)=> {return x})
-       
-         if(DoctorOrderOnline.length == 0)
-         {
-           totalPaid = online.totalPaid
-           totalOrders = online.totalOrders
-         }
-         else
-         {
-            totalPaid =  online.totalPaid
-            totalOrders = online.totalOrders
-         }
-        
-        const profit = totalPaid * 10 / 100
-        const totals =
-        {
-           totalPaid:totalPaid,
-            totalOrders:totalOrders,
-           doctorGained:totalPaid - profit,
-           profit:profit
-        }    
-
-        let doctorResult ={
-            doctorData,
-            DoctorOrderOnline,
-            totals
-        }
-        return res.status(200).json(doctorResult)
-    }
-    catch(err)
-    {
-        if(!err.statuscode)
-            {
-                err.statuscode = 500
-            }
-            next(err)
-    }
-}
-
 
 exports.getDoctorComplaints = async(req,res,next)=>
 {

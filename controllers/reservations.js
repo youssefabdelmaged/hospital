@@ -3,7 +3,6 @@ var moment = require('moment');
 const User = require('../model/users')
 const Doctor = require('../model/doctor')
 const stripe = require("stripe")(process.env.STRIPE_SECERT);
-const meeting = require('../middleware/dailyco');
 
 
 exports.create = async(req,res,next)=>
@@ -222,7 +221,6 @@ exports.cancel = async(req,res,next)=>
         {
             return res.status(404).json({message:'this appointment not found '})
         }
-        await meeting.deleteRoom(findReservationId.meetingName)
         const appointmentId = await appointment.findByIdAndRemove(id)
         res.status(200).json({message:'ok delete appointment'})
     }

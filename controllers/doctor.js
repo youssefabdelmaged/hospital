@@ -16,7 +16,7 @@ exports.getProfile = async(req,res,next)=>
     {
         const spesficDoc = await Doctor
         .findById(docId)
-        .select('userName title photo price aboutme location birthDate specialty calender teleCalender reviews raiting numReviews city region gender')
+        .select('userName title photo price aboutme location  birthDate specialty calender teleCalender reviews raiting numReviews city region gender')
         .populate('teleCalender','weekday startAt endAt duration')
         .populate('reviews','-user')
         if(!spesficDoc)
