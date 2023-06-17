@@ -22,7 +22,7 @@ router.get('/accepted-doctors',gaurd,adminController.getAcceptedDoctors)
 
 router.post('/search',gaurd,adminController.filterSearch)
 
-router.get('/accounts/allDoctors',gaurd,adminController.getAllDoctorsAccounts)
+router.get('/accounts/allDoctors',adminController.getAllDoctorsAccounts)
 
 router.get('/complaints/allDoctors',gaurd,adminController.getDoctorComplaints)
 
