@@ -63,6 +63,7 @@ router.post('/loginAdmin',async(req,res,next) =>
     await authController.login(req.body,"admin",res,next,true)
 })
 
+// router.post('/forgetPassword',authController.forgetPassword)
 
 module.exports = router
 

@@ -7,15 +7,26 @@ const Schema = mongoose.Schema
 const doctor = new Schema(
     {
         photo:{type:String},
-        photoId:{type:String},
-        city:{type:String,},
-        region:{type:String,},
+        photoId:{
+            type:String,
+            default:null,
+        },
+        city:{
+            type:String,
+        },
+        region:{
+            type:String,
+            default:null,
+        },
         license:{type:String},
-        licenseId:{type:String},
+        licenseId:{type:String,
+            default:null,
+        },
         isverfied:{type:Boolean,default:false},
         specialty: {type:String},
         title:{type:String},
-        price:{type:Number},
+        price:{type:Number,
+            default:null,},
         aboutme:{type:String},
         online:{type:Boolean,default:false},
         

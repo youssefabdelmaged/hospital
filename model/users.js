@@ -34,6 +34,9 @@ const patientSchema = new schema(
         photoId:{type:String},
 
         birthDate:{type:String},
+        // resetToken : String,
+        // resetTokenExpiration:Date,
+        // passwordTokenVerfied:Boolean,
         roles:{
             type: [String],
             enum: ['user' , 'doctor' ,'admin' ],
