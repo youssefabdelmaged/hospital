@@ -4,10 +4,8 @@ const bcrypt = require('bcryptjs') //for hash password
 const jwt = require('jsonwebtoken') // for create token
 const {validationResult} = require('express-validator') 
 const cloud = require('../middleware/cloudinary')
-const crypto = require('crypto') // create random token
 const fs = require('fs')
 const moment = require('moment')
-const sendMail = require('../middleware/sendmail')
 
 /*
     describe To regirster the doctor

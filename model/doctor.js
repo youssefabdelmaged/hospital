@@ -68,7 +68,10 @@ const doctor = new Schema(
         {
             type:Boolean,
             default:false
-        }
+        },
+
+
+
     },{discriminatorKey:'role'}
 )
 module.exports = user.discriminator ('Doctor',doctor)

@@ -11,7 +11,7 @@ exports.getProfilePatient = async(req,res,next)=>
     try
     {
         const profile = await User.findById(id)
-        .select('userName email phone  gender birthDate photo  roles address maritalstatus allergies blood smoking height weight')
+        .select('userName email phone  gender birthDate photo roles address maritalstatus allergies blood smoking height weight  notes')
         if(!profile)
         {
             return res.status(404).json({message:'this id  incorrect '})

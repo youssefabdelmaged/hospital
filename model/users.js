@@ -34,6 +34,11 @@ const patientSchema = new schema(
         photoId:{type:String},
 
         birthDate:{type:String},
+
+        notes:[{
+            type:schema.Types.ObjectId,
+            ref:'Notes'
+        }],
         roles:{
             type: [String],
             enum: ['user' , 'doctor' ,'admin' ],
