@@ -142,8 +142,6 @@ exports.registerUser = async(userData,req,roles,res,next)=>
     }
 /*
 
-
-
 /*
     describe To regirster the admin
 */
@@ -256,52 +254,4 @@ exports.login = async (userData,roles,res,next,join) =>
             next(error)
         }
 }
-
-
-/*
-    describe To reset the password by sending email for target mail (ADMIN, DOCTOR, USER)
-*/
-// exports.forgetPassword = async(req,res,next) =>
-// {
-//     //first find email for user
-//     const user = await User.findOne({email:req.body.email})
-//     if(!user)//if user not found
-//     { 
-//         return res.json({message:'There is no user with that the email',satsus:404})
-//     }
-//     //create random token
-//     const buffer = Math.floor(100000 + Math.random()*900000).toString();
-//     console.log(buffer);
-//     const token = crypto.createHash('sha256').update(buffer).digest('hex');
-//     console.log(token)
-
-// //   try
-// //     {
-// //         user.resetToken = token //save token in user db
-// //         user.resetTokenExpiration = Date.now() + 10 * 60 * 1000 // token expire after 10 minutes
-// //         await user.save() //save token and expire in user
-// //         const message =  `<div style="max-width: 700px; margin:auto;border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-// //           <h2 style="text-align: center; text-transform:uppercase;color: #068bc9;">
-// //           Welcom To DOCBOOK</h2><h1>rest the password</h1>
-// //           <p> welcome to <span style= "text-transform: uppercase;color: #068bc9;">
-// //           ${user.userName}</span> 
-// //           <h4 style="background: #068bc9; text-decoration: none; color: white; padding: 10px 20px;
-// //            margin: 10px 0; display: inline-block;">${buffer}</h4> update the password</p></div>`
-// //         //send email with token for user in email
-// //         await sendMail({email:user.email,message:message})
-// //         return res.status(200).json({'message':'ok Send Email'});      
-       
-// //     }
-// //     catch(error)
-// //         {
-// //             if(!error.statuscode)
-// //             {
-// //                 error.statuscode = 500
-// //             }
-// //             user.resetTokenExpiration = undefined //to delete token savd in user db after reset password
-// //             user.resetToken = undefined
-// //             await user.save()
-// //             next(error)
-// //         }
-// }
 

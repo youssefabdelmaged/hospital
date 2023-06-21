@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
-
 const user = require('../model/users')
-
 const Schema = mongoose.Schema
-
 const doctor = new Schema(
     {
         photo:{type:String},
@@ -22,12 +19,18 @@ const doctor = new Schema(
         licenseId:{type:String,
             default:null,
         },
-        isverfied:{type:Boolean,default:false},
-        specialty: {type:String},
-        title:{type:String},
+        isverfied:{
+            type:Boolean,
+            default:false},
+        specialty: {type:String,
+            default:null
+        },
+        title:{type:String,
+            default:null,},
         price:{type:Number,
             default:null,},
-        aboutme:{type:String},
+        aboutme:{type:String,
+            default:null},
         online:{type:Boolean,default:false},
         
         calender:
@@ -66,11 +69,7 @@ const doctor = new Schema(
             type:Boolean,
             default:false
         }
-
-
-
     },{discriminatorKey:'role'}
 )
-
 module.exports = user.discriminator ('Doctor',doctor)
 

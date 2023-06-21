@@ -45,7 +45,7 @@ const admin = require('./routes/admin')
 const reviews = require('./routes/reviews')
 const home = require('./routes/home');
 const reservations = require('./routes/reservations')
-
+const contactus = require('./routes/contactus')
 
 app.use('/auth',auth);
 app.use('/user',users)
@@ -55,7 +55,7 @@ app.use('/calender',doctorCalender)
 app.use(reviews)
 app.use('/home',home)
 app.use(reservations)
-
+app.use(contactus)
 
 app.use(express.static(path.join(__dirname,'uploads'))) // to serve images
 
