@@ -18,7 +18,7 @@ router.post('/verfy-doctors',gaurd,adminController.postVerfyDoctor)
 /*
 @DESC To get all docotors after veried
 */
-router.get('/accepted-doctors',gaurd,adminController.getAcceptedDoctors)
+router.get('/accepted-doctors',adminController.getAcceptedDoctors)
 
 router.post('/search',gaurd,adminController.filterSearch)
 
